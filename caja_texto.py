@@ -1,0 +1,15 @@
+import tkinter as tk
+ventana = tk.Tk()
+entry = tk.Entry(ventana)
+entry.pack()
+ventana.title("Mi primera ventana")
+ventana.geometry("400x300") 
+ventana.configure(bg='lightgray')
+def mostrar_texto():
+    texto = entry.get()
+    label.config(text=texto)
+boton = tk.Button(ventana, text="Mostrar texto", command=mostrar_texto)
+boton.pack()
+label = tk.Label(ventana, text="")
+label.pack()
+tk.mainloop()
