@@ -1,6 +1,6 @@
-import tkinter as tk
-from tkinter import messagebox
-ventana = tk.Tk()
+import tkinter as tk 
+from tkinter import messagebox 
+ventana = tk.Tk() 
 ventana.title("LayoutGrid")
 ventana.geometry("400x300")
 ventana.configure(bg='lightgray')
