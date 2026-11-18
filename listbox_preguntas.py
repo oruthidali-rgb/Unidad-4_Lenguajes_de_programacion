@@ -1,3 +1,7 @@
+#listbox_preguntas
+#Este programa muestra una lista de preguntas en el label, de manera que se puedan seleccionar
+#Idali
+#14/11/26
 import tkinter as tk  # Importa la librería tkinter
 
 def mostrar_seleccion(event):

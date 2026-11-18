@@ -1,3 +1,7 @@
+#ranking_treeview
+#Este programa muestra puntuaciones y los organiza en un top de mejores puntuaciones
+#Idali
+#15/11/26
 import tkinter as tk  # Importa la librería tkinter
 from tkinter import ttk  # Importa ttk para acceder al widget Treeview (tablas)
 

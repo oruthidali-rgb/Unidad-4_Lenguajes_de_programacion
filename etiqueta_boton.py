@@ -1,3 +1,7 @@
+#etiqueta_boton
+#Este programa ejecuta un boton para cambiar el texto mostrado en el label
+#Idali
+#05/11/26
 import tkinter as tk #importa la libreria
 def cambiar_texto():
     # Función que se ejecuta al presionar el botón; cambia el texto de la etiqueta

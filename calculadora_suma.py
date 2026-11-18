@@ -1,3 +1,7 @@
+#calculadora_suma
+#Este programa solicita dos numeros y los suma
+#Idali
+#09/11/26
 import tkinter as tk  # Importa la librería tkinter
 from tkinter import messagebox  # Importa messagebox para mostrar alertas emergentes en caso de error
 

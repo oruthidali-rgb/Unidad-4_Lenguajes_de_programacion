@@ -1,3 +1,7 @@
+#Ventana_pregunta
+#Este programa muestra una ventana secundatia sobre la ventana principal mostrando una pregunta y permitiendo contestar en una caja de texto
+#Idali
+#15/11/26
 import tkinter as tk  # Importa la librería tkinter
 from tkinter import messagebox
 

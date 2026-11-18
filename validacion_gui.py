@@ -1,3 +1,7 @@
+#validacion_gui
+#Este programa valida que los datos solicitados cumplan ciertos requerimientos
+#Idali
+#16/11/26
 import tkinter as tk  # Importa la librería tkinter
 from tkinter import messagebox  # Importa messagebox para reportar errores o éxitos
 

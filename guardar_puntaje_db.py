@@ -1,3 +1,7 @@
+#guardar_puntaje
+#Este programa gjarda los puntajes en una base de datos
+#Idali
+#16/11/26
 import tkinter as tk
 from tkinter import messagebox, ttk
 import sqlite3

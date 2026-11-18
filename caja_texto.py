@@ -1,3 +1,7 @@
+#caja_texto
+#Este programa permite al usuario escribir una linea de texto en una caja y se muestra.
+#Idali
+#06/11/26
 import tkinter as tk  # Importa la librería tkinter
 
 def mostrar_texto():

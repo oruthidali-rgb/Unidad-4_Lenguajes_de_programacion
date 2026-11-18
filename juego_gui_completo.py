@@ -1,3 +1,7 @@
+#juego_gui_completo
+#Este programa abarca todas las acciones realizadas previamente en las otras actividades
+#Idali
+#17/11/26
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import sqlite3
@@ -12,16 +16,19 @@ class QuizAppGUI:
         self.root.title("Quiz Game Completo - Unidad 4")
         self.root.geometry('600x450')
         
+        #variables de control de juego
         self.jugador = None
         self.preguntas_partida = []
         self.indice_actual = 0
         self.puntaje_ronda = 0
-        
+       
+        #Inicializamos la base de datos, el menú superior y la pantalla de bienvenida
         self.inicializar_db()
         self.crear_menu()
         self.mostrar_inicio()
 
     def inicializar_db(self):
+        # Conecta a SQLite (crea 'quiz_juego.db') para persistir el ranking de jugadores
         self.conn = sqlite3.connect('quiz_juego.db')
         self.cursor = self.conn.cursor()
         self.cursor.execute('''
@@ -34,6 +41,7 @@ class QuizAppGUI:
         self.conn.commit()
 
     def crear_menu(self):
+        # Crea la barra de menús superior de la ventana principal
         barra_menu = tk.Menu(self.root)
         
         menu_opciones = tk.Menu(barra_menu, tearoff=0)
@@ -46,15 +54,18 @@ class QuizAppGUI:
         self.root.config(menu=barra_menu)
 
     def limpiar_ventana(self):
+        # Destruye todos los widgets actuales de la ventana excepto el menú superior
         for widget in self.root.winfo_children():
             if not isinstance(widget, tk.Menu):
                 widget.destroy()
 
     def mostrar_inicio(self):
+        # Pantalla de Bienvenida e Inicio del Juego
         self.limpiar_ventana()
         
         tk.Label(self.root, text="¡Bienvenido al Quiz Game!", font=('Arial', 18, 'bold')).pack(pady=20)
         
+        # Campo para ingresar o mantener el nombre del jugador
         frame_nombre = tk.Frame(self.root)
         frame_nombre.pack(pady=10)
         tk.Label(frame_nombre, text="Nombre del Jugador: ", font=('Arial', 11)).pack(side=tk.LEFT, padx=5)
@@ -63,17 +74,20 @@ class QuizAppGUI:
         if self.jugador:
             self.entry_nombre.insert(0, self.jugador.nombre)
 
-        tk.Button(self.root, text="📁 Cargar Preguntas (JSON)", font=('Arial', 11), width=25, command=self.cargar_archivo_json).pack(pady=8)
-        tk.Button(self.root, text="▶ Comenzar a Jugar", font=('Arial', 11), bg='lightgreen', width=25, command=self.iniciar_juego).pack(pady=8)
-        tk.Button(self.root, text="🏆 Ver Ranking", font=('Arial', 11), width=25, command=self.mostrar_ranking).pack(pady=8)
-        tk.Button(self.root, text="❌ Salir", font=('Arial', 11), bg='lightcoral', width=25, command=self.salir_aplicacion).pack(pady=8)
+# Botones de navegación principal
+        tk.Button(self.root, text="Cargar Preguntas (JSON)", font=('Arial', 11), width=25, command=self.cargar_archivo_json).pack(pady=8)
+        tk.Button(self.root, text="Comenzar a Jugar", font=('Arial', 11), bg='lightgreen', width=25, command=self.iniciar_juego).pack(pady=8)
+        tk.Button(self.root, text="Ver Ranking", font=('Arial', 11), width=25, command=self.mostrar_ranking).pack(pady=8)
+        tk.Button(self.root, text="Salir", font=('Arial', 11), bg='lightcoral', width=25, command=self.salir_aplicacion).pack(pady=8)
 
     def cargar_archivo_json(self):
+        # Abre un diálogo flotante para seleccionar dinámicamente el archivo JSON
         ruta = filedialog.askopenfilename(
             title="Seleccionar archivo de preguntas", 
             filetypes=[("Archivos JSON", "*.json"), ("Todos los archivos", "*.*")]
         )
         if ruta:
+            # Utiliza la función importada de la unidad anterior para poblar la lista
             self.preguntas_cargadas = cargar_preguntas(ruta)
             if self.preguntas_cargadas:
                 messagebox.showinfo("Éxito", f"Se cargaron {len(self.preguntas_cargadas)} preguntas correctamente.")
@@ -81,6 +95,7 @@ class QuizAppGUI:
                 messagebox.showerror("Error", "No se pudieron cargar las preguntas o el archivo está vacío.")
 
     def iniciar_juego(self):
+        # Valida que se haya escrito un nombre y cargado las preguntas antes de empezar
         nombre = self.entry_nombre.get().strip()
         if not nombre:
             messagebox.showwarning("Atención", "Debe ingresar el nombre del jugador para comenzar.")
@@ -93,6 +108,7 @@ class QuizAppGUI:
         self.jugador = Jugador(nombre)
         self.puntaje_ronda = 0
         self.indice_actual = 0
+        # Selecciona aleatoriamente hasta 3 preguntas para la partida actual
         self.preguntas_partida = random.sample(self.preguntas_cargadas, min(3, len(self.preguntas_cargadas)))
         self.mostrar_siguiente_pregunta()
 
@@ -105,8 +121,10 @@ class QuizAppGUI:
             tk.Label(self.root, text=f"Pregunta {self.indice_actual + 1} de {len(self.preguntas_partida)}", font=('Arial', 11, 'italic')).pack(pady=10)
             tk.Label(self.root, text=pregunta_obj.texto, font=('Arial', 13, 'bold'), wraplength=500).pack(pady=15)
 
+# Variable para almacenar la opción seleccionada en los Radiobutton
             self.opcion_seleccionada = tk.StringVar(value="")
 
+# Renderiza opciones dinámicamente según si es de Opción Múltiple o Verdadero/Falso
             if isinstance(pregunta_obj, PreguntaMultiple):
                 for opcion in pregunta_obj.opciones:
                     tk.Radiobutton(self.root, text=opcion, variable=self.opcion_seleccionada, value=opcion, font=('Arial', 11)).pack(anchor='w', padx=100, pady=3)
@@ -124,6 +142,7 @@ class QuizAppGUI:
             messagebox.showwarning("Atención", "Seleccione una respuesta antes de continuar.")
             return
 
+# Utiliza directamente los métodos orientados a objetos definidos en tus clases
         es_correcta = pregunta_obj.esta_correcto(respuesta)
         puntaje_obtenido = pregunta_obj.calcular_puntaje(0)
         self.puntaje_ronda += puntaje_obtenido
@@ -137,13 +156,15 @@ class QuizAppGUI:
         self.mostrar_siguiente_pregunta()
 
     def finalizar_juego(self):
+        # Muestra el resultado final de la partida y guarda los datos en SQLite
         self.limpiar_ventana()
         self.jugador.puntaje = self.puntaje_ronda
 
-        tk.Label(self.root, text="🎉 ¡Partida Finalizada!", font=('Arial', 16, 'bold')).pack(pady=20)
+        tk.Label(self.root, text="¡Partida Finalizada!", font=('Arial', 16, 'bold')).pack(pady=20)
         tk.Label(self.root, text=f"Jugador: {self.jugador.nombre}", font=('Arial', 12)).pack(pady=5)
         tk.Label(self.root, text=f"Puntaje total obtenido: {self.jugador.puntaje}", font=('Arial', 12, 'bold')).pack(pady=10)
 
+# Inserta el registro del jugador en la base de datos
         self.cursor.execute('INSERT INTO ranking (jugador, puntaje) VALUES (?, ?)', (self.jugador.nombre, self.jugador.puntaje))
         self.conn.commit()
 
@@ -152,9 +173,10 @@ class QuizAppGUI:
         tk.Button(self.root, text="Salir", font=('Arial', 11), bg='lightcoral', width=20, command=self.salir_aplicacion).pack(pady=5)
 
     def mostrar_ranking(self):
+        # Dibuja la tabla con Treeview para consultar los 5 mejores puntajes de la BD
         self.limpiar_ventana()
 
-        tk.Label(self.root, text="🏆 Top 5 Mejores Puntajes (Base de Datos)", font=('Arial', 14, 'bold')).pack(pady=15)
+        tk.Label(self.root, text="Top 5 Mejores Puntajes (Base de Datos)", font=('Arial', 14, 'bold')).pack(pady=15)
 
         columnas = ('Jugador', 'Puntaje')
         tree = ttk.Treeview(self.root, columns=columnas, show='headings')
@@ -164,6 +186,7 @@ class QuizAppGUI:
         tree.column('Jugador', width=250, anchor='w')
         tree.column('Puntaje', width=120, anchor='center')
 
+# Consulta SQL para ordenar de forma descendente y limitar a 5 registros
         self.cursor.execute('SELECT jugador, puntaje FROM ranking ORDER BY puntaje DESC LIMIT 5')
         filas = self.cursor.fetchall()
 
@@ -175,6 +198,7 @@ class QuizAppGUI:
         tk.Button(self.root, text="Volver al Inicio", font=('Arial', 11), width=20, command=self.mostrar_inicio).pack(pady=15)
 
     def salir_aplicacion(self):
+        # Cierra correctamente la conexión a SQLite antes de salir de la aplicación
         if hasattr(self, 'conn'):
             self.conn.close()
         self.root.quit()

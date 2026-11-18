@@ -1,3 +1,7 @@
+#cargar_preguntas
+#Este programa nos permite cargar un archivo .json para su lectura
+#Idali
+#16/11/26
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import json
