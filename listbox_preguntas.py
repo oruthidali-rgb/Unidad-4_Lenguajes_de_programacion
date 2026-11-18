@@ -3,7 +3,7 @@ import tkinter as tk  # Importa la librería tkinter
 def mostrar_seleccion(event):
     # Función que captura el evento de selección en la lista
     seleccion = listbox.curselection()  # Obtiene la tupla con el índice del elemento seleccionado
-    if seleccion:
+    if seleccion: 
         indice = seleccion[0]  # Extrae el índice numérico
         pregunta_texto = listbox.get(indice)  # Obtiene el texto correspondiente a ese índice en el Listbox
         label_pregunta.config(text=pregunta_texto)  # Muestra la pregunta seleccionada en la etiqueta grande

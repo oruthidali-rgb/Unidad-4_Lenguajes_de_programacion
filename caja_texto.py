@@ -7,7 +7,7 @@ def mostrar_texto():
 
 ventana = tk.Tk()  # Crea la ventana principal
 ventana.title("Ejercicio Caja de Texto")  # Define el título
-ventana.geometry('400x250')  # Define el tamaño de la ventana
+ventana.geometry('400x300')  # Define el tamaño de la ventana
 
 entrada = tk.Entry(ventana, font=('Arial', 12))  # Crea una caja de texto de una sola línea (Entry)
 entrada.pack(pady=15)  # Muestra el Entry en la ventana con un espacio vertical

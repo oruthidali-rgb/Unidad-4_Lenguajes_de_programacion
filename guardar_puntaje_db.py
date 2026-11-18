@@ -57,10 +57,10 @@ def abrir_ventana_top5():
     # Crea una ventana secundaria (Toplevel) para mostrar la tabla del Top 5
     top_window = tk.Toplevel(ventana)
     top_window.title("Top 5 Mejores Puntajes")
-    top_window.geometry('350x250')
+    top_window.geometry('400x300')
     top_window.config(bg='plum')
 
-    tk.Label(top_window, text="🏆 Top 5 Jugadores", font=('Arial', 12, 'bold'), bg='plum').pack(pady=10)
+    tk.Label(top_window, text="Top 5 Jugadores", font=('Arial', 12, 'bold'), bg='plum').pack(pady=10)
 
     # Configuración del Treeview (Tabla)
     columnas = ('Jugador', 'Puntaje')
@@ -96,6 +96,6 @@ entry_puntaje.pack(pady=5)
 tk.Button(ventana, text='Guardar en BD', command=accion_guardar, bg='white', font=('Arial', 10)).pack(pady=10)
 
 # Botón para ver el Top 5
-tk.Button(ventana, text='Ver Top 5 🏆', command=abrir_ventana_top5, bg='lightyellow', font=('Arial', 10)).pack(pady=5)
+tk.Button(ventana, text='Ver Top 5', command=abrir_ventana_top5, bg='lightyellow', font=('Arial', 10)).pack(pady=5)
 
 ventana.mainloop()

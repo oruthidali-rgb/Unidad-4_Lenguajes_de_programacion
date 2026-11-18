@@ -14,7 +14,7 @@ def sumar():
 
 ventana = tk.Tk()  # Crea la ventana principal
 ventana.title("Calculadora de Suma")  # Define el título
-ventana.geometry('350x250')  # Establece las dimensiones de la ventana
+ventana.geometry('400x300')  # Establece las dimensiones de la ventana
 
 entrada1 = tk.Entry(ventana, font=('Arial', 11))  # Crea la primera caja de texto para el número 1
 entrada1.pack(pady=10)  # Empaqueta la primera caja de texto

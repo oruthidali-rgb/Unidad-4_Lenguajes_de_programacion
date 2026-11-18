@@ -1,3 +1,7 @@
+#layout_grid
+#Este programa solicita datos principales como nombre,edad y correo. Al guardarlos muestra una ventana
+#Idali
+#14/11/26
 import tkinter as tk 
 from tkinter import messagebox 
 ventana = tk.Tk() 
